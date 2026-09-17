@@ -2,11 +2,15 @@
 
 ## Part B – Stakeholders and Scope
 
-### Stakeholders
-1. Reception 
-2. Partitioners 
-3. Patients 
-4. SmartCare Management 
+### Stakeholders, Need and Evidence
+ 
+
+| Stakeholder | Need | Evidence |
+|---|---|---|
+| Reception | To find patient information quickly and avoid duplicate bookings. | The brief says staff have difficulty finding patient information and report duplicate bookings. |
+| Practitioners | To see appointments and patients' appointment history. | The brief mentions inconsistent appointment status and limited appointment history. |
+| Patients | To have their information and appointments recorded correctly without double bookings. | The brief identifies problems with patient information, duplicate bookings and appointment records. |
+| Management | A small and maintainable system to improve the current process. | The brief directly states that management wants a small, maintainable patient, practitioner and appointment system. |
 
 ### In Scope
 - Managing patients and practitioners 
