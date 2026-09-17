@@ -18,8 +18,8 @@ print(f"Patient: {patient2_name} | Practitioner: {practitioner2_name} | Time: {a
 appointments = []
 
 def book_appointment(patient_name, practitioner_name, appointment_time):
-    if not patient_name:
-        raise ValueError("Patient name cannot be empty")
+    if not patient_name or not practitioner_name or not appointment_time:
+        raise ValueError("Patient name, practitioner name and time cannot be empty")
     appointment = {
         "patient": patient_name,
         "practitioner": practitioner_name,
@@ -46,3 +46,8 @@ display_appointments()
 # 3. The program allows double-booking — it does not check if a practitioner is already booked at that time.
 # 4. There is no date/time validation — the appointment time is accepted as text without checking it is valid.
 # 5. There is no option to edit or cancel appointments — once added, an appointment can only be displayed.
+
+
+# --- Part G improvement ---
+# I improved the validation so the function now checks that the patient name,
+# practitioner name AND appointment time are all provided, not just the patient name.
