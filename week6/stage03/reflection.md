@@ -1,0 +1,7 @@
+# Stage 3 Reflection
+
+The most difficult modelling decision I made was how to handle appointmentHistory. As per the original design, I had created appointmentHistory as an attribute. However, after discussing this with Copilot, I realised that since the history of appointments could simply be obtained via the patient's appointments, I would eliminate appointmentHistory as a separate attribute and use the relationship between Patient and Appointment to show the history of appointments.
+
+Copilot did help point out that some parts of the model (such as MedicalRecord, Notification, Payment and Clinic) were not necessary. These are typical classes you may see in a health care system, but there were no requirements that supported their inclusion. Therefore, this process actually kept my model much simpler than it probably would have been if I had followed standard practices for modelling a health care system.
+
+For the majority of my final decisions on how to structure my model, I relied on the functional requirements from Stage 2. For example, Patient, Practitioner and Appointment all had specific functional requirements related to them. Additionally, the relationships between these classes were clearly supported by the requirements around appointments. Lastly, I eliminated classes that were not clearly supported by confirmed requirements. Overall, this process illustrated the importance of having a direct link between each component of your domain model and the requirements.
