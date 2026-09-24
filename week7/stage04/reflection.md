@@ -1,0 +1,7 @@
+# Stage 4 Reflection
+
+The main part of the AI-generated code that I modified was the Appointment class. I found two bugs in the code before using it. The first was the incorrect `from future import annotations` statement, which I changed to `from __future__ import annotations`. The second was `post_init`, which needed to be `__post_init__` for the validation to run. This showed me that I could not just copy the AI code without checking that it actually worked.
+
+I accepted the `AppointmentStatus` enum and the protected status transitions because they matched the approved design and the business rules. I also kept the `complete()` method because it supported the appointment status behaviour without adding a new class.
+
+The approved Stage 3 design helped keep the AI focused. I gave Copilot the existing Appointment design and told it not to add database, UI, notification or service classes. This meant the implementation stayed focused on the three classes already identified: Patient, Practitioner and Appointment. The business rules also constrained the code, especially preventing practitioner double bookings and stopping invalid status changes. Overall, I learned that AI can help with implementation, but its code still needs to be reviewed, tested and changed when necessary.
