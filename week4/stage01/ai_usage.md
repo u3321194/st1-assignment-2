@@ -36,5 +36,17 @@ Write a simple, beginner-friendly Python function that stores a patient name, pr
 What Copilot produced:
 A version with add_appointment() and show_appointments(). It checks that all fields are filled before adding, stores each appointment in a dictionary inside a list, and prints a confirmation message. Saved as smartcare_ai.py.
 
-Verification (Part F):
-I ran smartcare_ai.py. It printed "Appointment added successfully!" for both appointments and displayed them correctly, so the AI code works.
+
+## Part F – Verify Behaviour
+
+I tested both versions with the same five inputs.
+
+| Test case | Human version (smartcare_v01.py) | AI version (smartcare_ai.py) |
+|---|---|---|
+| Normal appointment (Carol Lee, Dr. John Doe, 2024-07-21 09:00 AM) | Accepted | "Appointment added successfully!" |
+| Blank patient name | Rejected – ValueError: "Patient name, practitioner name and time cannot be empty" | Rejected – printed "All fields must be filled in." |
+| Same practitioner and time (Dan Wu, Dr. John Doe, 2024-07-20 10:00 AM – same slot as Alice) | Accepted – double-booking was not prevented | Accepted – double-booking was not prevented |
+| patient_name=None | Rejected – same ValueError | Rejected – printed "All fields must be filled in." |
+| appointment_time=None | Rejected – same ValueError | Rejected – printed "All fields must be filled in." |
+
+Finding: Both versions correctly reject blank and None inputs, but neither prevents double-booking. The human version raises a ValueError, which stops bad data in a way the calling code can detect, while the AI version only prints a message and returns.

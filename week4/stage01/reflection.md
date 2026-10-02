@@ -1,6 +1,4 @@
-Before turning on any AI tool, I built the SmartCare prototype myself. I started with a simple version that printed two hard-coded appointments using variables and f-strings, then enhanced it with a list to store appointments, a dictionary to hold each 
-
-appointment's details, and two functions - book_appointment and display_appointments. Writing it by hand first meant I actually understood how the data was structured before asking AI anything.
+Before turning on any AI tool, I built the SmartCare prototype myself. I started with a simple version that printed two hard-coded appointments using variables and f-strings, then enhanced it with a list to store appointments, a dictionary to hold each appointment's details, and two functions - book_appointment and display_appointments. Writing it by hand first meant I actually understood how the data was structured before asking AI anything.
 
 Using AI as a tutor helped me understand a few things more clearly, especially why input validation matters and how a ValueError can stop bad data from being stored. It explained the limitations of my code, like the fact that it didn't check for missing fields or handle None inputs.
 
