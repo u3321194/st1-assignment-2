@@ -22,3 +22,31 @@ try:
     appt.cancel()
 except ValueError as e:
     print("Illegal repeated cancel rejected:", e)
+
+# --- Extra checks added after review ---
+
+# 5. Status cannot be set directly
+try:
+    appt.status = AppointmentStatus.SCHEDULED
+except AttributeError:
+    print("Direct status change rejected: status is read-only")
+
+# 6. Double-booking is prevented
+bob = Patient("Bob Johnson", "P003")
+appt2 = Appointment(bob, practitioner, date(2024, 7, 21), time(9, 0))
+try:
+    Appointment(patient, practitioner, date(2024, 7, 21), time(9, 0))
+except ValueError as e:
+    print("Double-booking rejected:", e)
+
+# 7. A cancelled slot can be rebooked
+rebooked = Appointment(bob, practitioner, date(2024, 7, 20), time(10, 0))
+print("Cancelled slot rebooked with status:", rebooked.status)
+
+# 8. A completed appointment cannot be cancelled
+appt2.complete()
+print("After complete, status:", appt2.status)
+try:
+    appt2.cancel()
+except ValueError as e:
+    print("Cancel after complete rejected:", e)

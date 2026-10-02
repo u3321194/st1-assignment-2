@@ -2,7 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from datetime import date, time
 from enum import Enum
-from typing import ClassVar, Set, Tuple, Any
+from typing import ClassVar, Set, Tuple
 
 
 class Patient:
@@ -34,11 +34,11 @@ class AppointmentStatus(Enum):
 
 @dataclass
 class Appointment:
-    patient: Any
-    practitioner: Any
+    patient: Patient
+    practitioner: Practitioner
     date: date
     time: time
-    status: AppointmentStatus = field(default=AppointmentStatus.SCHEDULED, init=False)
+    _status: AppointmentStatus = field(default=AppointmentStatus.SCHEDULED, init=False, repr=False)
 
     _booked_slots: ClassVar[Set[Tuple[int, date, time]]] = set()
 
@@ -54,19 +54,25 @@ class Appointment:
             raise ValueError("The practitioner already has an appointment at this date and time.")
         Appointment._booked_slots.add(slot)
 
+    @property
+    def status(self) -> AppointmentStatus:
+        """Read-only: status can only change through cancel() or complete()."""
+        return self._status
+
     def cancel(self) -> None:
-        if self.status == AppointmentStatus.CANCELLED:
+        if self._status == AppointmentStatus.CANCELLED:
             raise ValueError("A cancelled appointment cannot be cancelled again.")
-        if self.status == AppointmentStatus.COMPLETED:
+        if self._status == AppointmentStatus.COMPLETED:
             raise ValueError("A completed appointment cannot be cancelled.")
-        self.status = AppointmentStatus.CANCELLED
+        self._status = AppointmentStatus.CANCELLED
+        Appointment._booked_slots.discard(self._slot_key())  # free the slot for rebooking
 
     def complete(self) -> None:
-        if self.status == AppointmentStatus.CANCELLED:
+        if self._status == AppointmentStatus.CANCELLED:
             raise ValueError("A cancelled appointment cannot be changed to another status.")
-        if self.status == AppointmentStatus.COMPLETED:
+        if self._status == AppointmentStatus.COMPLETED:
             raise ValueError("Appointment is already completed.")
-        self.status = AppointmentStatus.COMPLETED
+        self._status = AppointmentStatus.COMPLETED
 
     def _slot_key(self) -> Tuple[int, date, time]:
         return (id(self.practitioner), self.date, self.time)
