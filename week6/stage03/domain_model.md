@@ -18,13 +18,13 @@
 - A practitioner cannot have two appointments at the same date and time.
 - An appointment needs a patient, practitioner and appointment time before it can be created.
 
-## Part B – Candidate Classes
+## Part B – Candidate Classes (Requirement-to-Concept Trace)
 
-| Candidate concept | Supporting requirement | State (attributes) | Behaviour (methods) |
-|---|---|---|---|
-| Patient | FR-01, FR-02, FR-08 | Patient name, patient ID, appointment history | Create, search and view patient information |
-| Practitioner | FR-03, FR-04, FR-05 | Practitioner name, practitioner ID, appointments | Create and view practitioner information and appointments |
-| Appointment | FR-04, FR-05, FR-06, FR-07, FR-09, FR-10 | Patient, practitioner, date, time, status | Create, view, update and cancel appointments |
+| Candidate concept | Supporting requirement | State (attributes) | Behaviour (methods) | Decision |
+|---|---|---|---|---|
+| Patient | FR-01, FR-02, FR-08 | Patient name, patient ID, appointment history | Create, search and view patient information | Kept as a class; appointment history later represented through the Patient–Appointment relationship (see Part F) |
+| Practitioner | FR-03, FR-04, FR-05 | Practitioner name, practitioner ID, appointments | Create and view practitioner information and appointments | Kept as a class; appointments represented through the Practitioner–Appointment relationship |
+| Appointment | FR-04, FR-05, FR-06, FR-07, FR-09, FR-10 | Patient, practitioner, date, time, status | Create, view, update and cancel appointments | Kept as a class; patient and practitioner shown as relationships (see Part F) |
 
 ## Part C – CRC Cards
 
@@ -47,7 +47,6 @@ classDiagram
     class Patient {
         +name
         +patientID
-        +appointmentHistory
         +viewDetails()
         +search()
     }
@@ -55,13 +54,10 @@ classDiagram
     class Practitioner {
         +name
         +practitionerID
-        +appointments
         +viewSchedule()
     }
 
     class Appointment {
-        +patient
-        +practitioner
         +date
         +time
         +status
@@ -76,9 +72,11 @@ classDiagram
 
 The two lines at the bottom mean:
 
-- Patient 1 → 0 Appointments: one patient can have no appointments or many appointments.
-- Practitioner 1 → 0 Appointments: one practitioner can have no appointments or many appointments.
+- Patient 1 → 0..* Appointments: one patient can have no appointments or many appointments.
+- Practitioner 1 → 0..* Appointments: one practitioner can have no appointments or many appointments.
 - Each Appointment is connected to one patient and one practitioner.
+
+Following the Part F decisions, appointment history, a practitioner's appointments, and an appointment's patient and practitioner are shown through these relationships rather than as stored attributes.
 
 ## Design Rationale
 
